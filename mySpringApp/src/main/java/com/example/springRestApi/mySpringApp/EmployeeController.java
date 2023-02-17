@@ -2,8 +2,10 @@ package com.example.springRestApi.mySpringApp;
 
 import java.util.ArrayList;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,6 +14,7 @@ public class EmployeeController {
 	
 	ArrayList<Employee> newEmployee = new ArrayList<> ();
 	
+	// View Employee List
 	@GetMapping("/getEmployees")
 	public ArrayList<Employee> getEmployees() {
 		
@@ -61,7 +64,7 @@ public class EmployeeController {
 		
 		return employee;
 	}
-		
+		//Add Employee
 		@PostMapping("/addEmployee")
 		public String addEmployee (@RequestBody Employee employee) {
 			String result;
@@ -73,6 +76,40 @@ public class EmployeeController {
 		}
 			return result;
 		}
+		
+		
+	//Update Employee
+	@PutMapping("/updateEmployee")
+	public String updateEmployee(Employee employee) {		
+		String result;
+		if (newEmployee.contains(employee)) {
+			 newEmployee.set(0, employee);
+			 result = "Employee Updated";
+		} else {
+			result = "Employee doesn't exist";
+		}
+		
+		return result;	
+       
+    }
+		
+	
+
+	// Delete Employee
+	@DeleteMapping("/deleteEmployee")
+	public String deleteEmployee(Employee employee) {
+		
+		String result;
+		if (newEmployee.contains(employee)) {
+			 newEmployee.remove(0);
+			 result = "Employee Removed";
+		} else {
+			result = "Employee doesn't exist";
+		}
+		
+		return result;	
+		
+	}
 
 
 }
